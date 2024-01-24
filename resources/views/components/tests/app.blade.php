@@ -17,6 +17,9 @@
         <script src="{{ asset('js/app.jp') }}" defer></script>
     </head>
     <body>
+        <header>
+            {{ $header }}
+        </header>
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
