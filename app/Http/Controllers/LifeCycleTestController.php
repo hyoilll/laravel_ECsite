@@ -26,6 +26,15 @@ class LifeCycleTestController extends Controller
 
         dd($test, app());
     }
+
+    public function showServiceProviderTest(){
+        $encrypt = app()->make('encrypter');
+        $pw = $encrypt->encrypt('password');
+
+        $sample = app()->make('serviceProviderTest');
+
+        dd($sample, $pw, $encrypt->decrypt($pw));
+    }
 }
 
 class Sample{
