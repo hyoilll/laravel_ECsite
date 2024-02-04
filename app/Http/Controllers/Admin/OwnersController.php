@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Owner; // Eloquent エロくアント式
+use Illuminate\Support\Facades\DB; // QueryBuilder　クエリビルド式
+use Carbon\Carbon;
 
 class OwnersController extends Controller
 {
@@ -19,7 +22,24 @@ class OwnersController extends Controller
      */
     public function index()
     {
-        dd('hello world!!!!!');
+        $date_now = Carbon::now();
+        $date_parse = Carbon::parse(now());
+        echo $date_now, "\n";
+        echo $date_parse;
+
+        // エロくアント式の場合、'create_at'属性は最初からCarbon instanceになっている
+        $e_all = Owner::all();
+
+        // ビルドクエリ式の場合、'create_at'属性は最初からCarbon instanceになっていない
+        $q_get = DB::table('owners')->select('name', 'created_at')->get();
+        // $q_frist = DB::table('owners')->select('name')->first();
+
+        // $c_test = collect([
+        //     'name' => 'テスト'
+        // ]);
+
+        // dd($e_all, $q_get, $q_frist, $c_test);
+        return view('admin.owners.index', compact('e_all', 'q_get'));
     }
 
     /**
